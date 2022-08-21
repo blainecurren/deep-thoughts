@@ -1,0 +1,29 @@
+{
+  "name": "mern-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "watch": "nodemon",
+    "seed": "node seeders/seeds.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blainecurren/deep-thoughts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blainecurren/deep-thoughts/issues"
+  },
+  "homepage": "https://github.com/blainecurren/deep-thoughts#readme",
+  "dependencies": {
+    "apollo-server-express": "^3.10.1",
+    "bcrypt": "^5.0.1",
+    "express": "^4.18.1",
+    "faker": "^6.6.6",
+    "mongoose": "^6.5.2",
+    "nodemon": "^2.0.19"
+  }
+}
