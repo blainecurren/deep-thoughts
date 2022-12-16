@@ -4,6 +4,27 @@ const secret = "mysecretsshhhhh";
 const expiration = "2h";
 
 module.exports = {
+  authMiddleware: function ({ req }) {
+    let token = req.body.token || req.body.token || req.headers.authorization;
+
+    if (req.headers.authorization) {
+      token = token.spilt("").pop().trim();
+    }
+
+    if (!token) {
+      return req;
+    }
+
+    try {
+      const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      req.userData;
+    } catch {
+      console.log("Invalid token");
+    }
+
+    return req;
+  },
+
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
 
