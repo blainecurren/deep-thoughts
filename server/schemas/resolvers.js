@@ -1,5 +1,6 @@
 const { User, Thought } = require("../models");
 
+
 const resolvers = {
   Query: {
     thoughts: async (parent, { username }) => {
@@ -21,6 +22,13 @@ const resolvers = {
         .populate("friends")
         .populate("thoughts");
     },
+  },
+  Mutation: {
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
+      return user;
+    },
+    login: async () => {},
   },
 };
 

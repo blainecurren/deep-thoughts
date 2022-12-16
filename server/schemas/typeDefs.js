@@ -25,9 +25,7 @@ const typeDefs = gql`
     createdAt: String
     username: String
   }
-  type Query {
-    thoughts(username: String): [Thought]
-  }
+
   type Query {
     users: [User]
     user(username: String!): User
