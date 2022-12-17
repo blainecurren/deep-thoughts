@@ -11,6 +11,15 @@ import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
 
+const httpLink = createHttpLink({
+  uri: "http://localhost:3001/graphql",
+});
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
+
 function App() {
   return (
     <div className="flex-column justify-flex-start min-100-vh">
