@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import Auth from "../utils/auth";
 
 import ThoughtList from "../components/ThoughtList";
@@ -17,6 +17,11 @@ const Profile = () => {
 
   const user = data?.me || data?.user || {};
 
+  // redirect to personal profile page if username is the logged in users
+  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
+    return <Redirect to="/profile" />;
+  }
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -25,7 +30,7 @@ const Profile = () => {
     <div>
       <div className="flex-row mb-3">
         <h2 className="bg-dark text-secondary p-3 display-inline-block">
-          Viewing {user.username}'s profile.
+          Viewing {userParam ? `${user.username}'s` : "your"} profile.
         </h2>
       </div>
 
