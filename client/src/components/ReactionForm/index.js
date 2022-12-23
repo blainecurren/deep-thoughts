@@ -19,11 +19,16 @@ const ReactionForm = ({ thoughtId }) => {
 
   return (
     <div>
-      <p className="m-0">Character Count: 0/280</p>
-      <form className="flex-row justify-center justify-space-between-md align-stretch">
+      <p className="m-0">Character Count: {characterCount}/280</p>
+      <form
+        className="flex-row justify-center justify-space-between-md align-stretch"
+        onSubmit={handleFormSubmit}
+      >
         <textarea
           placeholder="Leave a reaction to this thought..."
+          value={reactionBody}
           className="form-input col-12 col-md-9"
+          onChange={handleChange}
         ></textarea>
 
         <button className="btn col-12 col-md-3" type="submit">
