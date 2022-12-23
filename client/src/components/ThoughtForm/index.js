@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_THOUGHT } from "../../utils/mutations";
-import { QUERY_THOUGHTS } from "../../utils/queries";
+import { QUERY_THOUGHTS, QUERY_ME } from "../../utils/queries";
 
 const ThoughtForm = () => {
   const [thoughtText, setText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
 
   const [addThought, { error }] = useMutation(ADD_THOUGHT, {
-    update(Cache, { data: { addThought } }) {
-      const { thoughts } = caches.readQuery({ query: QUERY_THOUGHTS });
+    update(cache, { data: { addThought } }) {
+      try {
+        const { thoughts } = cache.readQuery({ query: QUERY_THOUGHTS });
 
-      caches.writeQUERY({
-        query: QUERY_THOUGHTS,
-        data: { thoughts: [addThought, ...thoughts] },
+        cache.writeQUERY({
+          query: QUERY_THOUGHTS,
+          data: { thoughts: [addThought, ...thoughts] },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+      const { me } = cache.readQuery({ query: QUERY_ME });
+      cache.writeQuery({
+        query: QUERY_ME,
+        data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
       });
     },
   });
